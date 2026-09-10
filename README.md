@@ -1,8 +1,8 @@
 # Production AI Readiness
 
-Installable skill for **Cursor** and **Claude Code**. Mechanical scan of an AI application; the host model writes the customer review.
+A Cursor and Claude Code skill that scans an AI app for production gaps. The scanner scores the repo; the host model writes the review from your files.
 
-Requires Python 3.11+ and PyYAML.
+You need Python 3.11+ and PyYAML.
 
 ```bash
 pip3 install -r requirements.txt
@@ -10,41 +10,41 @@ pip3 install -r requirements.txt
 
 ## Install
 
-Clone this repo as the skill folder (same tree works for both tools):
+Clone this repo into the skill folder. One tree works for both tools.
 
 ```bash
 # Cursor
-git clone <CLONE_URL> ~/.cursor/skills/production-ai-readiness
+git clone https://github.com/Mayank-013/production-ai-readiness.git ~/.cursor/skills/production-ai-readiness
 
 # Claude Code
-git clone <CLONE_URL> ~/.claude/skills/production-ai-readiness
+git clone https://github.com/Mayank-013/production-ai-readiness.git ~/.claude/skills/production-ai-readiness
 ```
 
 Or clone once and symlink:
 
 ```bash
-git clone <CLONE_URL> ~/src/production-ai-readiness
+git clone https://github.com/Mayank-013/production-ai-readiness.git ~/src/production-ai-readiness
 ln -sfn ~/src/production-ai-readiness ~/.cursor/skills/production-ai-readiness
 ln -sfn ~/src/production-ai-readiness ~/.claude/skills/production-ai-readiness
 ```
 
-Then in the repo you want assessed, ask: **Assess production AI readiness**.
+Open the app you want assessed and ask: **Assess production AI readiness**.
 
-The scan command is:
+To run the scan yourself:
 
 ```bash
 python3 ~/.cursor/skills/production-ai-readiness/scripts/assess.py --repo "$PWD"
 ```
 
-## What this package contains
+## What's in here
 
-- `SKILL.md` — host-agent instructions
-- `scripts/assess.py` — entry point
-- `pipeline/` — frozen 42-family analyzer (runtime modules only)
+- `SKILL.md` — what the host agent should do
+- `scripts/assess.py` — the command that runs the scan
+- `pipeline/` — the 42-family analyzer
 - `engineering-intelligence/schemas/` — validation schemas
-- `engineering-intelligence/consolidation/` — frozen families, traits, detectors, catalog skills
+- `engineering-intelligence/consolidation/` — frozen families, traits, detectors, and catalog skills
 
-It does **not** include the knowledge corpus, extractor prompts, tests, or sealed benchmark dests.
+You won't find the knowledge corpus, extractor prompts, tests, or sealed benchmark dests here.
 
 ## Run without the agent
 
@@ -53,4 +53,4 @@ python3 scripts/assess.py --repo /path/to/your/app
 python3 scripts/assess.py --repo /path/to/your/app --overwrite
 ```
 
-Writes under `engineering-intelligence/consolidation/product_runs/<repo>/repo_analysis_integrated/`. Read `brief.json`; do not send `brief.md` to a customer.
+Results land in `engineering-intelligence/consolidation/product_runs/<repo>/repo_analysis_integrated/`. Read `brief.json`. Don't send `brief.md` to the customer.
