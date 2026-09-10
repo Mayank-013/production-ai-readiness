@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitAggregationContract",
+  "description": "How reviewed observations become one trait conclusion. Direct evidence is aggregated first. Ontology implies is applied after, and cannot erase stronger direct provenance. Absence of evidence is UNKNOWN while absence_policy is unknown. Do not emit a repo trait map or EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trait",
+    "trait_id",
+    "schema_version",
+    "status",
+    "absence_policy",
+    "absent_allowed",
+    "strong_to",
+    "one_weak_to",
+    "corroborated_weak_to",
+    "no_evidence_to",
+    "has_static_strong",
+    "implies",
+    "implied_by"
+  ],
+  "properties": {
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "absence_policy": { "type": "string", "const": "unknown" },
+    "absent_allowed": { "type": "boolean", "const": false },
+    "strong_to": { "type": "string", "const": "PRESENT" },
+    "one_weak_to": { "type": "string", "const": "UNKNOWN" },
+    "corroborated_weak_to": { "type": "string", "const": "LIKELY" },
+    "no_evidence_to": { "type": "string", "const": "UNKNOWN" },
+    "has_static_strong": { "type": "boolean" },
+    "implies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "implied_by": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepoAnalysisReport",
+  "description": "Product report for one repository: traits, applicable C1 + Phase 5 families, assessments with pack provenance, useful questions, PARTIAL/FAIL recommendations, and finding-attached playbooks. No composite score. UNKNOWN is abstain. Agent skills stay omitted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "repo_path",
+    "schema_version",
+    "status",
+    "absence_is_unknown",
+    "fail_requires_contradiction",
+    "skills",
+    "traits_present",
+    "applicable_families",
+    "by_state",
+    "asked_questions",
+    "findings",
+    "unknown_families",
+    "playbook_validation_accept",
+    "playbook_validation_revise"
+  ],
+  "properties": {
+    "repo": { "type": "string", "minLength": 1 },
+    "repo_path": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string", "const": "repo-analysis-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "absence_is_unknown": { "type": "boolean", "const": true },
+    "fail_requires_contradiction": { "type": "boolean", "const": true },
+    "skills": { "type": "string", "const": "locked" },
+    "traits_present": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "traits_likely": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "instantiated_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "applicable_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "applicable_c1_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "applicable_by_pack": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+      }
+    },
+    "not_applicable_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "by_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"],
+      "properties": {
+        "SATISFIED": { "type": "integer", "minimum": 0 },
+        "PARTIAL": { "type": "integer", "minimum": 0 },
+        "UNKNOWN": { "type": "integer", "minimum": 0 },
+        "FAIL": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "asked_questions": { "type": "integer", "minimum": 0 },
+    "findings": { "type": "integer", "minimum": 0 },
+    "unknown_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "playbook_validation_accept": { "type": "integer", "minimum": 0 },
+    "playbook_validation_revise": { "type": "integer", "minimum": 0 },
+    "by_pack": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"],
+        "properties": {
+          "SATISFIED": { "type": "integer", "minimum": 0 },
+          "PARTIAL": { "type": "integer", "minimum": 0 },
+          "UNKNOWN": { "type": "integer", "minimum": 0 },
+          "FAIL": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "c1_regression": { "type": "boolean" },
+    "composite_score": { "type": "null" },
+    "note": { "type": "string" }
+  }
+}

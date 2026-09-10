@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkComparison",
+  "description": "One mechanical B4 development comparison row. Human truth is PRESENT/NOT_PRESENT/UNRESOLVED. System output is PRESENT/LIKELY/UNKNOWN. UNRESOLVED is out of scope, not negative truth. Do not attach an error-cause taxonomy. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "trait",
+    "trait_id",
+    "human_label",
+    "system_state",
+    "system_basis",
+    "classification",
+    "split",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "human_label": {
+      "type": "string",
+      "enum": ["PRESENT", "NOT_PRESENT", "UNRESOLVED"]
+    },
+    "system_state": {
+      "type": "string",
+      "enum": ["PRESENT", "LIKELY", "UNKNOWN"]
+    },
+    "system_basis": {
+      "type": "string",
+      "enum": ["direct", "implied", "no_sufficient_evidence"]
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "TP_PRESENT",
+        "UNDERCONFIDENT",
+        "FN",
+        "FP_PRESENT",
+        "FP_LIKELY",
+        "TN_ABSTAIN",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "split": { "type": "string", "enum": ["development", "held_out"] },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

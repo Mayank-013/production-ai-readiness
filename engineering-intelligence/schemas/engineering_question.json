@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EngineeringQuestion",
+  "description": "A specialization of a frozen QuestionFamily for present system traits. match_policy stays unresolved: every matching specialization is emitted; no match uses the canonical stem. Not one question per CPF object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "family_id",
+    "expectation_id",
+    "prompt",
+    "specialization_id",
+    "bindings",
+    "human_required",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "repo": { "type": "string" },
+    "prompt": { "type": "string", "minLength": 12 },
+    "specialization_id": { "type": "string", "minLength": 3 },
+    "bindings": { "type": "object" },
+    "assessment_state": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "human_required": { "type": "boolean" },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

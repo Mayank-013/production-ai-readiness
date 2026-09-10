@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitDetectorObservationReviewed",
+  "description": "A VALID first-run observation carried into the reviewed HackerRankATS set. Provenance points at the raw run row and the execution-review decision. B3 may consume only this dest. Do not attach PRESENT/LIKELY/ABSENT/UNKNOWN.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "detector_id",
+    "observation",
+    "strength",
+    "supports",
+    "file",
+    "location",
+    "observation_index",
+    "review_decision",
+    "source_run",
+    "source_review",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "detector_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+\\.v[1-9][0-9]*$"
+    },
+    "trait": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "supports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "observation": { "type": "string", "minLength": 12 },
+    "strength": { "type": "string", "enum": ["strong", "weak"] },
+    "file": { "type": "string", "minLength": 1 },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_line", "end_line"],
+      "properties": {
+        "start_line": { "type": "integer", "minimum": 1 },
+        "end_line": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "symbol": { "type": "string" },
+    "observation_index": { "type": "integer", "minimum": 1 },
+    "review_decision": { "type": "string", "const": "VALID" },
+    "source_run": { "type": "string", "const": "trait_detector_observations.jsonl" },
+    "source_review": { "type": "string", "const": "trait_detector_observation_review.jsonl" },
+    "status": { "type": "string", "const": "frozen" },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

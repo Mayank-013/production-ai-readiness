@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClaimCandidate",
+  "type": "object",
+  "required": ["candidate_id", "raw_field", "raw_value", "suggested_claim_type", "evidence", "canonicalization_status"],
+  "properties": {
+    "candidate_id": { "type": "string" },
+    "native_id": { "type": "string" },
+    "raw_field": { "type": "string" },
+    "raw_value": { "type": "string" },
+    "suggested_claim_type": { "type": "string" },
+    "qualifiers": { "type": "object" },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "quote": { "type": "string" },
+        "char_start": { "type": ["integer", "null"] },
+        "char_end": { "type": ["integer", "null"] }
+      }
+    },
+    "canonicalization_status": {
+      "type": "string",
+      "enum": ["ok", "no_evidence", "empty", "invalid_claim_type", "not_a_claim"]
+    },
+    "extractor_family": { "type": "string" },
+    "authority": { "type": "number" }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FamilyApplicability",
+  "description": "When a canonical QuestionFamily is in scope. required decides APPLY vs NOT_APPLICABLE. optional is for later specialization only. not suppresses even if required matches. Do not emit specialized stems from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "schema_version",
+    "status",
+    "required",
+    "optional",
+    "not"
+  ],
+  "properties": {
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "canonical", "frozen"] },
+    "diagnostic_job": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "required": {
+      "description": "Condition over trait slugs. Without a match, do not ask the family."
+    },
+    "optional": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "not": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "notes": { "type": "string" }
+  }
+}

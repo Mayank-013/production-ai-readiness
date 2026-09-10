@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanonicalRelationship",
+  "description": "Phase 1 typed edge among canonical CPF objects. Lives in canonical/relationships.jsonl. Do not copy these fields onto Control/FailureMode/Principle objects.",
+  "type": "object",
+  "required": [
+    "relationship_id",
+    "source_id",
+    "target_id",
+    "type",
+    "evidence_class",
+    "review_status",
+    "schema_version"
+  ],
+  "properties": {
+    "relationship_id": { "type": "string", "pattern": "^REL-[0-9]{4}$" },
+    "source_id": { "type": "string" },
+    "target_id": { "type": "string" },
+    "source_kind": { "type": "string", "enum": ["control", "failure_mode", "principle"] },
+    "target_kind": { "type": "string", "enum": ["control", "failure_mode", "principle"] },
+    "type": { "type": "string", "enum": ["MITIGATES", "GOVERNS", "REQUIRES", "VERIFIED_BY"] },
+    "evidence_class": { "type": "string", "enum": ["EXPLICIT", "DERIVED"] },
+    "review_status": { "type": "string", "const": "accepted" },
+    "schema_version": { "type": "string", "const": "0.1" },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "edge_id": { "type": "string", "pattern": "^REL-[0-9]{4}$" },
+        "supporting_claim_ids": { "type": "array", "items": { "type": "string" } },
+        "shared_doc_ids": { "type": "array", "items": { "type": "string" } },
+        "shared_passage_ids": { "type": "array", "items": { "type": "string" } },
+        "classifier_run_id": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

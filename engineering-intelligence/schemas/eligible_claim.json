@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EligibleClaim",
+  "type": "object",
+  "required": [
+    "extraction_id",
+    "wave",
+    "claim_type",
+    "target_kind",
+    "statement",
+    "source",
+    "eligibility",
+    "label_status",
+    "weight"
+  ],
+  "properties": {
+    "extraction_id": { "type": "string" },
+    "wave": { "type": "string", "enum": ["wave1", "wave2"] },
+    "claim_type": { "type": "string" },
+    "target_kind": {
+      "type": "string",
+      "enum": ["principle", "control", "failure_mode", "tradeoff", "constraint", "decision"]
+    },
+    "statement": { "type": "string" },
+    "source": { "type": "object" },
+    "authority": { "type": "number" },
+    "extractor_family": { "type": "string" },
+    "pack": { "type": ["string", "null"] },
+    "human_label": { "type": "string" },
+    "label_notes": { "type": "string" },
+    "label_status": { "type": "string", "enum": ["labeled", "unlabeled"] },
+    "eligibility": {
+      "type": "string",
+      "enum": ["define", "support", "example", "unreviewed", "exclude"]
+    },
+    "weight": { "type": "number" }
+  }
+}

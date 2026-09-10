@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recommendation",
+  "description": "What to change when a control is PARTIAL or FAIL. UNKNOWN does not earn a recommendation. Skills and validation stay locked.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "family_id",
+    "expectation_id",
+    "question_id",
+    "assessment_state",
+    "title",
+    "actions",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "question_id": { "type": "string", "minLength": 3 },
+    "control_id": { "type": "string", "pattern": "^CTRL-[0-9]{4}$" },
+    "repo": { "type": "string" },
+    "assessment_state": {
+      "type": "string",
+      "enum": ["PARTIAL", "FAIL"]
+    },
+    "title": { "type": "string", "minLength": 8 },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "skill_id": { "type": "string" },
+    "validation_id": { "type": "string" },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

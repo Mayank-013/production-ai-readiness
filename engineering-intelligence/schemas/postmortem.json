@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PostmortemExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "trigger": { "type": "array", "items": { "type": "string" } },
+    "symptoms": { "type": "array", "items": { "type": "string" } },
+    "impact": { "type": "array", "items": { "type": "string" } },
+    "root_causes": { "type": "array", "items": { "type": "string" } },
+    "contributing_factors": { "type": "array", "items": { "type": "string" } },
+    "detection_gaps": { "type": "array", "items": { "type": "string" } },
+    "missing_safeguards": { "type": "array", "items": { "type": "string" } },
+    "mitigations": { "type": "array", "items": { "type": "string" } },
+    "permanent_fixes": { "type": "array", "items": { "type": "string" } },
+    "lessons": { "type": "array", "items": { "type": "string" } },
+    "generalizable_controls": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkFamilyActivation",
+  "description": "Families the frozen applicability rules would newly activate from one false PRESENT. Baseline is human PRESENT traits only. Do not run specialization. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "trait",
+    "trait_id",
+    "classification",
+    "baseline_family_count",
+    "activated_families",
+    "family_activation_fp",
+    "split",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "classification": { "type": "string", "const": "FP_PRESENT" },
+    "baseline_family_count": { "type": "integer", "minimum": 0 },
+    "activated_families": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^QF-[0-9]{4}$" }
+    },
+    "family_activation_fp": { "type": "integer", "minimum": 0 },
+    "split": { "type": "string", "enum": ["development", "held_out"] },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CriticVerdict",
+  "type": "object",
+  "required": ["verdict", "issues"],
+  "properties": {
+    "extraction_id": { "type": "string" },
+    "passage_id": { "type": "string" },
+    "verdict": { "enum": ["accept", "revise", "reject"] },
+    "issues": { "type": "array", "items": { "type": "string" } },
+    "human_label": {
+      "enum": [
+        "GOOD",
+        "TOO_BROAD",
+        "TOO_SPECIFIC",
+        "UNSUPPORTED",
+        "DUPLICATIVE",
+        "BAD_GENERALIZATION",
+        "USEFUL_BUT_INCOMPLETE"
+      ]
+    },
+    "corrected_extraction": { "type": ["object", "null"] }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FileManifestRecord",
+  "type": "object",
+  "required": [
+    "file_id",
+    "path",
+    "category",
+    "sub_category",
+    "extension",
+    "size_bytes",
+    "sha256",
+    "source_type",
+    "source_name",
+    "authority",
+    "processable",
+    "gold"
+  ],
+  "properties": {
+    "file_id": { "type": "string" },
+    "path": { "type": "string" },
+    "category": { "type": "string" },
+    "sub_category": { "type": ["string", "null"] },
+    "extension": { "type": "string" },
+    "size_bytes": { "type": "integer" },
+    "sha256": { "type": "string" },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "framework",
+        "book",
+        "documentation",
+        "postmortem",
+        "incident",
+        "adr",
+        "rfc",
+        "kep",
+        "research_paper",
+        "engineering_blog",
+        "issue",
+        "pull_request",
+        "source_code",
+        "benchmark",
+        "tutorial",
+        "unknown"
+      ]
+    },
+    "source_name": { "type": "string" },
+    "authority": { "type": "number" },
+    "processable": { "type": "boolean" },
+    "processable_reason": { "type": "string" },
+    "gold": { "type": "boolean" },
+    "sidecar": { "type": "boolean" }
+  }
+}

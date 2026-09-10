@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DuplicateRecord",
+  "type": "object",
+  "required": ["kind", "canonical_doc", "duplicate_paths"],
+  "properties": {
+    "kind": { "enum": ["exact", "near"] },
+    "canonical_doc": { "type": "string" },
+    "canonical_path": { "type": "string" },
+    "duplicate_paths": { "type": "array", "items": { "type": "string" } },
+    "duplicate_cluster": { "type": "string" },
+    "similarity": { "type": "number" },
+    "sha256": { "type": "string" }
+  }
+}

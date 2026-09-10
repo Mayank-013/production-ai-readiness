@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RelationshipCandidate",
+  "description": "Phase 1 typed relationship candidate between canonical CPF objects. Not a canonical graph edge. See docs/consolidation.md.",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "schema_version",
+    "source_id",
+    "target_id",
+    "source_kind",
+    "target_kind",
+    "channel",
+    "proposed_relation",
+    "allowed_relations",
+    "status"
+  ],
+  "properties": {
+    "edge_id": { "type": "string", "pattern": "^REL-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "rel-candidate-0.1" },
+    "source_id": { "type": "string" },
+    "target_id": { "type": "string" },
+    "source_kind": { "type": "string", "enum": ["control", "failure_mode", "principle"] },
+    "target_kind": { "type": "string", "enum": ["control", "failure_mode", "principle"] },
+    "channel": {
+      "type": "string",
+      "enum": ["control_failure_mode", "principle_control", "control_control"]
+    },
+    "proposed_relation": {
+      "type": ["string", "null"],
+      "enum": ["MITIGATES", "GOVERNS", "REQUIRES", "VERIFIED_BY", null]
+    },
+    "allowed_relations": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["MITIGATES", "GOVERNS", "REQUIRES", "VERIFIED_BY"] },
+      "minItems": 1
+    },
+    "support_hint": { "type": ["string", "null"], "enum": ["EXPLICIT", "DERIVED", null] },
+    "reason": { "type": "string" },
+    "supporting_claim_ids": { "type": "array", "items": { "type": "string" } },
+    "shared_doc_ids": { "type": "array", "items": { "type": "string" } },
+    "shared_passage_ids": { "type": "array", "items": { "type": "string" } },
+    "shared_mechanisms": { "type": "array", "items": { "type": "string" } },
+    "retrieval": { "type": "object" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "classified", "accepted", "rejected"]
+    },
+    "classifier": { "type": ["object", "null"] }
+  }
+}

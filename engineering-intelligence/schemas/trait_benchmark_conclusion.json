@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkConclusion",
+  "description": "One B4 development-repo trait conclusion. Written from the frozen B2 catalog plus the frozen B3 aggregation rules. Do not invent observations. Do not emit ABSENT. Do not emit numeric confidence. Do not overwrite the HackerRankATS trait map dest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "trait",
+    "trait_id",
+    "state",
+    "basis",
+    "observation_ids",
+    "implied_by",
+    "split",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "state": { "type": "string", "enum": ["PRESENT", "LIKELY", "UNKNOWN"] },
+    "basis": {
+      "type": "string",
+      "enum": ["direct", "implied", "no_sufficient_evidence"]
+    },
+    "observation_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^obs_[0-9]{4}$" }
+    },
+    "implied_by": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "split": { "type": "string", "enum": ["development", "held_out"] },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

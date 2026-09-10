@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidencedValue",
+  "oneOf": [
+    { "type": "string" },
+    {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" },
+        "evidence": { "type": "string", "minLength": 12 },
+        "quote": { "type": "string" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NormalizedClaim",
+  "description": "Eligible claim plus terminology tags. statement is unchanged.",
+  "type": "object",
+  "required": ["extraction_id", "statement", "target_kind", "concept_tags", "normalize_version"],
+  "properties": {
+    "extraction_id": { "type": "string" },
+    "statement": { "type": "string" },
+    "target_kind": { "type": "string" },
+    "term_tags": { "type": "array", "items": { "type": "string" } },
+    "concept_tags": { "type": "array", "items": { "type": "string" } },
+    "layer_tags": { "type": "array", "items": { "type": "string" } },
+    "stance_tags": { "type": "array", "items": { "type": "string" } },
+    "vendor_tags": { "type": "array", "items": { "type": "string" } },
+    "domain_tags": { "type": "array", "items": { "type": "string" } },
+    "applies_class_hints": { "type": "array", "items": { "type": "string" } },
+    "normalize_version": { "type": "string" }
+  }
+}

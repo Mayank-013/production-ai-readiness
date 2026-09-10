@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ControlAssessment",
+  "description": "C3 assessment of one applicable control. Absence of evidence is UNKNOWN, not FAIL. FAIL requires contradiction evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "expectation_id",
+    "family_id",
+    "state",
+    "basis",
+    "observation_ids",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "repo": { "type": "string", "minLength": 2 },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "state": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "basis": { "type": "string", "minLength": 3 },
+    "observation_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

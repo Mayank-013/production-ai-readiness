@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkErrorAnalysis",
+  "description": "One development comparison error with a root-cause label. One remediation pass only. Do not add detectors or retune recall.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "trait",
+    "trait_id",
+    "classification",
+    "human_label",
+    "system_state",
+    "system_basis",
+    "cause",
+    "action",
+    "allowed_implementation_defect",
+    "fix_id",
+    "note",
+    "split",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "classification": {
+      "type": "string",
+      "enum": ["FN", "FP_PRESENT", "FP_LIKELY"]
+    },
+    "human_label": {
+      "type": "string",
+      "enum": ["PRESENT", "NOT_PRESENT"]
+    },
+    "system_state": {
+      "type": "string",
+      "enum": ["PRESENT", "LIKELY", "UNKNOWN"]
+    },
+    "system_basis": {
+      "type": "string",
+      "enum": ["direct", "implied", "no_sufficient_evidence"]
+    },
+    "cause": {
+      "type": "string",
+      "enum": [
+        "RUNNER_MISS",
+        "AGGREGATION_MISS",
+        "REFERENCE_LABEL_ISSUE",
+        "ONTOLOGY_IMPLICATION",
+        "DETECTOR_MISS",
+        "EXPECTED_STATIC_LIMITATION"
+      ]
+    },
+    "action": { "type": "string", "enum": ["FIX", "DOCUMENT"] },
+    "allowed_implementation_defect": { "type": "boolean" },
+    "fix_id": { "type": ["string", "null"] },
+    "note": { "type": "string", "minLength": 8 },
+    "split": { "type": "string", "const": "development" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

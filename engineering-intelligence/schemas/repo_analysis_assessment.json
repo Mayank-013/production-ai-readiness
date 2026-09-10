@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepoAnalysisAssessment",
+  "description": "Merged repo-analysis assessment row. C3 fields stay intact. pack is provenance only and does not change C3 state rules. evidence is optional live snippets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "expectation_id",
+    "family_id",
+    "pack",
+    "state",
+    "basis",
+    "observation_ids",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "repo": { "type": "string", "minLength": 1 },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "pack": {
+      "type": "string",
+      "enum": [
+        "c1",
+        "p5_eval",
+        "p5_security",
+        "p5_runtime",
+        "p5_rag",
+        "p5_ops",
+        "p5_cost"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "basis": { "type": "string", "minLength": 3 },
+    "observation_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

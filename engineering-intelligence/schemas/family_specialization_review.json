@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FamilySpecializationReview",
+  "description": "Human review of one specialization candidate. Judges noun binding, not frozen applicability or canonical family design. Decisions are accept, revise, or reject. Do not use split. Do not emit EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "specialization_id",
+    "diagnostic_job",
+    "question_stance",
+    "canonical_stem",
+    "when",
+    "bindings",
+    "specialized_stem",
+    "gates",
+    "decision",
+    "schema_version"
+  ],
+  "properties": {
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "specialization_id": { "type": "string", "pattern": "^QF-[0-9]{4}\\.[a-z][a-z0-9_]*$" },
+    "diagnostic_job": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "question_stance": { "type": "string", "enum": ["exist", "measure", "verify"] },
+    "canonical_stem": { "type": "string", "minLength": 12 },
+    "when": { "type": "object" },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 3 },
+      "minProperties": 1
+    },
+    "specialized_stem": { "type": "string", "minLength": 12 },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["SAME_JOB", "SAME_STANCE", "BINDING_SUPPORTED", "NO_EXTRA_REQUIREMENT"],
+      "properties": {
+        "SAME_JOB": { "type": "boolean" },
+        "SAME_STANCE": { "type": "boolean" },
+        "BINDING_SUPPORTED": { "type": "boolean" },
+        "NO_EXTRA_REQUIREMENT": { "type": "boolean" }
+      }
+    },
+    "decision": { "type": "string", "enum": ["accept", "revise", "reject"] },
+    "revision": { "type": "string" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

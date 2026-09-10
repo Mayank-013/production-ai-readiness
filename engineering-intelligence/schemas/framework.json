@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FrameworkExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "quality_attributes": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "verification_guidance": { "type": "array", "items": { "type": "string" } },
+    "exceptions": { "type": "array", "items": { "type": "string" } }
+  }
+}

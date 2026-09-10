@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ControlEvidenceObservation",
+  "description": "One C2 observation of control evidence in a repository. Strength is assigned by frozen C1 expectations. Does not conclude SATISFIED/PARTIAL/UNKNOWN/FAIL.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "repo",
+    "expectation_id",
+    "family_id",
+    "strength",
+    "file",
+    "start_line",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "repo": { "type": "string", "minLength": 2 },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "strength": {
+      "type": "string",
+      "enum": ["strong", "supporting", "insufficient", "contradiction"]
+    },
+    "file": { "type": "string", "minLength": 1 },
+    "start_line": { "type": "integer", "minimum": 1 },
+    "snippet": { "type": "string" },
+    "signal": { "type": "string" },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

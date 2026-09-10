@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillValidation",
+  "description": "Before-vs-after assessment for one applied skill. Closed only when the target family state changes as required and no SATISFIED family is demoted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "family_id",
+    "before_state",
+    "after_state",
+    "required_after",
+    "closed",
+    "other_families_demoted",
+    "decision",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "skill_id": { "type": "string", "pattern": "^SKL-[0-9]{4}$" },
+    "validation_id": { "type": "string", "pattern": "^VAL-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "before_state": { "type": "string", "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"] },
+    "after_state": { "type": "string", "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"] },
+    "required_after": { "type": "string", "enum": ["SATISFIED", "PARTIAL"] },
+    "closed": { "type": "boolean" },
+    "other_families_demoted": { "type": "boolean" },
+    "decision": { "type": "string", "enum": ["accept", "revise", "reject"] },
+    "notes": { "type": "string" },
+    "schema_version": { "type": "string", "const": "skill-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

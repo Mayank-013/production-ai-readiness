@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitConclusion",
+  "description": "One HackerRankATS trait conclusion. Written only from the 32 reviewed observations plus the B3 aggregation contract. Do not invent observations. Do not inspect the repository. Do not emit numeric confidence. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "trait",
+    "trait_id",
+    "state",
+    "basis",
+    "observation_ids",
+    "implied_by",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo": { "type": "string", "const": "HackerRankATS" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "state": { "type": "string", "enum": ["PRESENT", "LIKELY", "UNKNOWN"] },
+    "basis": {
+      "type": "string",
+      "enum": ["direct", "implied", "no_sufficient_evidence"]
+    },
+    "observation_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^obs_[0-9]{4}$" }
+    },
+    "implied_by": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

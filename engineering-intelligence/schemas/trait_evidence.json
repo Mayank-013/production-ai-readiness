@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitEvidenceContract",
+  "description": "What repository evidence can support a frozen system trait. This is classification evidence, not control evidence and not detection logic. Absence of evidence is UNKNOWN, not trait=false. Do not emit detectors, trait maps, or EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trait",
+    "trait_id",
+    "schema_version",
+    "status",
+    "absence_policy",
+    "positive_evidence",
+    "negative_evidence",
+    "insufficient_alone",
+    "evidence_sources"
+  ],
+  "properties": {
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "absence_policy": { "type": "string", "const": "unknown" },
+    "positive_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "negative_evidence": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "insufficient_alone": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "evidence_sources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["code", "config", "dependencies", "architecture", "tests", "ci", "deployment", "ops"]
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

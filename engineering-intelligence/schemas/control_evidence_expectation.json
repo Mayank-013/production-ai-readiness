@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ControlEvidenceExpectation",
+  "description": "What repository evidence would demonstrate that an applicable engineering control exists. This is C1 only: not a detector, not an assessment, and not one row per canonical CPF object. Absence of evidence is UNKNOWN, not FAIL.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "family_id",
+    "control_id",
+    "diagnostic_job",
+    "schema_version",
+    "status",
+    "absence_policy",
+    "strong",
+    "supporting",
+    "insufficient_alone",
+    "contradiction",
+    "evidence_sources"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "control_id": { "type": "string", "pattern": "^CTRL-[0-9]{4}$" },
+    "diagnostic_job": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "absence_policy": { "type": "string", "const": "unknown" },
+    "strong": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "supporting": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "insufficient_alone": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "contradiction": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 }
+    },
+    "evidence_sources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["code", "config", "dependencies", "architecture", "tests", "ci", "deployment", "ops"]
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkMetric",
+  "description": "One B4 metric definition. Records how inferred states are compared to human reference states. Does not record scores. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metric_id",
+    "family",
+    "definition",
+    "false_positive_weighted",
+    "pass_fail_frozen",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "metric_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "family": {
+      "type": "string",
+      "enum": [
+        "present",
+        "likely",
+        "error_rate",
+        "slice",
+        "taxonomy"
+      ]
+    },
+    "definition": { "type": "string", "minLength": 12 },
+    "false_positive_weighted": { "type": "boolean" },
+    "pass_fail_frozen": { "type": "boolean", "const": false },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

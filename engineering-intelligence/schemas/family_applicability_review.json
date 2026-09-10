@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FamilyApplicabilityReviewCase",
+  "description": "One synthetic system scored against one family. expected is human judgment. actual is the rule. decision classifies agreement or the defect. Do not emit specialized stems from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "diagnostic_job",
+    "system_case",
+    "traits",
+    "expected",
+    "actual",
+    "decision",
+    "schema_version"
+  ],
+  "properties": {
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "diagnostic_job": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "system_case": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "traits": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "expected": { "type": "string", "enum": ["APPLY", "NOT_APPLICABLE"] },
+    "actual": { "type": "string", "enum": ["APPLY", "NOT_APPLICABLE"] },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "CORRECT",
+        "FALSE_POSITIVE",
+        "FALSE_NEGATIVE",
+        "OVER_CONSTRAINED",
+        "UNDER_CONSTRAINED",
+        "ONTOLOGY_LIMITATION"
+      ]
+    },
+    "implication": { "type": "boolean" },
+    "hard_negative": { "type": "boolean" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

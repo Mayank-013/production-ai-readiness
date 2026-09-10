@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ControlBenchmarkReference",
+  "description": "Human reference label for one C4 control-assessment row. Absence is UNKNOWN. FAIL is only for a known contradiction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "family_id",
+    "expectation_id",
+    "state",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "repo": { "type": "string", "minLength": 2 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "state": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "notes": { "type": "string" },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

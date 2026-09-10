@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NormalizedDocument",
+  "type": "object",
+  "required": ["doc_id", "source_type", "source_name", "domain", "title", "original_path", "file_id", "authority", "sections"],
+  "properties": {
+    "doc_id": { "type": "string" },
+    "file_id": { "type": "string" },
+    "source_type": { "type": "string" },
+    "source_name": { "type": "string" },
+    "domain": { "type": "array", "items": { "type": "string" } },
+    "title": { "type": "string" },
+    "original_path": { "type": "string" },
+    "authority": { "type": "number" },
+    "gold": { "type": "boolean" },
+    "content_sha256": { "type": "string" },
+    "simhash": { "type": "string" },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["section_id", "heading", "text"],
+        "properties": {
+          "section_id": { "type": "string" },
+          "heading": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkReference",
+  "description": "One human reference label for a B4 development repo. Ground truth is independent of detector capability. LIKELY is an inference state, not a reference label. Do not inspect detector output before labeling. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "trait",
+    "trait_id",
+    "label",
+    "evidence",
+    "rationale",
+    "split",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "trait_id": { "type": "string", "pattern": "^TRAIT-[0-9]{4}$" },
+    "label": {
+      "type": "string",
+      "enum": ["PRESENT", "NOT_PRESENT", "UNRESOLVED"]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "start_line", "end_line", "reason"],
+        "properties": {
+          "file": { "type": "string", "minLength": 1 },
+          "start_line": { "type": "integer", "minimum": 1 },
+          "end_line": { "type": "integer", "minimum": 1 },
+          "reason": { "type": "string", "minLength": 8 }
+        }
+      }
+    },
+    "rationale": { "type": "string", "minLength": 12 },
+    "split": { "type": "string", "enum": ["development", "held_out"] },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

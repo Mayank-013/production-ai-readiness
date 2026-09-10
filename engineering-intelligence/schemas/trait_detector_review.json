@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitDetectorReview",
+  "description": "Review of a B2 detector declaration as an evidence claim, not a trait conclusion. Question: if this detector fires, does the cited observation support exactly the declared supports claim at the declared strength? Decisions are accept, revise, or reject. Do not use split. Do not emit PRESENT/LIKELY/UNKNOWN or EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "detector_id",
+    "trait",
+    "detector_type",
+    "evidence_strength",
+    "supports",
+    "observes",
+    "review_tags",
+    "gates",
+    "independent_supports",
+    "decision",
+    "schema_version"
+  ],
+  "properties": {
+    "detector_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+\\.v[1-9][0-9]*$"
+    },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "detector_type": {
+      "type": "string",
+      "enum": [
+        "dependency",
+        "import_usage",
+        "api_usage",
+        "config",
+        "code_structure",
+        "dataflow",
+        "deployment_iac",
+        "semantic"
+      ]
+    },
+    "evidence_strength": { "type": "string", "enum": ["strong", "weak"] },
+    "supports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "observes": { "type": "string", "minLength": 12 },
+    "review_tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "dependency_package",
+          "framework_import",
+          "exposed_port",
+          "iac_config",
+          "model_sdk",
+          "retrieval_library",
+          "agent_framework",
+          "dataflow_chain",
+          "runtime_use",
+          "presence_only"
+        ]
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "OBSERVATION_REPRODUCIBLE",
+        "SUPPORTS_EXACT",
+        "STRENGTH_CALIBRATED",
+        "NO_OVERCLAIM"
+      ],
+      "properties": {
+        "OBSERVATION_REPRODUCIBLE": { "type": "boolean" },
+        "SUPPORTS_EXACT": { "type": "boolean" },
+        "STRENGTH_CALIBRATED": { "type": "boolean" },
+        "NO_OVERCLAIM": { "type": "boolean" }
+      }
+    },
+    "independent_supports": { "type": "boolean" },
+    "decision": { "type": "string", "enum": ["accept", "revise", "reject"] },
+    "revision": { "type": "string" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

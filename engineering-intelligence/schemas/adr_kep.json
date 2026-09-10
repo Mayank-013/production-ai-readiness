@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdrKepExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "problem": { "type": "string" },
+    "context": { "type": "array", "items": { "type": "string" } },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "options_considered": { "type": "array", "items": { "type": "string" } },
+    "chosen_option": { "type": "string" },
+    "reasoning": { "type": "array", "items": { "type": "string" } },
+    "rejected_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["option", "reason"],
+        "properties": {
+          "option": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "tradeoffs": { "type": "array" },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "testing_strategy": { "type": "array", "items": { "type": "string" } },
+    "generalizable_principles": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SpecializationSlot",
+  "description": "Noun role in a family stem. Slots determine how to ask. Traits determine whether to ask. Do not emit EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "status",
+    "slug",
+    "role"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SLOT-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["canonical"] },
+    "slug": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "role": { "type": "string", "minLength": 8 },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkObservation",
+  "description": "One B4 development-repo detector hit. Reuses the frozen B2 catalog and runner. Do not attach PRESENT/LIKELY/ABSENT/UNKNOWN. Do not claim observation review. Do not overwrite the first HackerRankATS observation dest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "detector_id",
+    "observation",
+    "strength",
+    "supports",
+    "file",
+    "location",
+    "observation_index",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "detector_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+\\.v[1-9][0-9]*$"
+    },
+    "trait": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Investigation context from the detector declaration. B3 must use supports, not this field."
+    },
+    "supports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "observation": { "type": "string", "minLength": 12 },
+    "strength": { "type": "string", "enum": ["strong", "weak"] },
+    "file": { "type": "string", "minLength": 1 },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_line", "end_line"],
+      "properties": {
+        "start_line": { "type": "integer", "minimum": 1 },
+        "end_line": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "symbol": { "type": "string" },
+    "observation_index": { "type": "integer", "minimum": 1 },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

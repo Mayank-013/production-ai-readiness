@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ImplementationSkill",
+  "description": "Coding-agent playbook attached to a PARTIAL or FAIL finding via family + state + evidence_class. Not attached to a family in the abstract. UNKNOWN and SATISFIED do not receive a skill.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "family_id",
+    "assessment_state",
+    "evidence_class",
+    "apply_status",
+    "inputs",
+    "steps",
+    "constraints",
+    "artifacts",
+    "validation_id",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SKL-[0-9]{4}$" },
+    "name": { "type": "string", "minLength": 8 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "assessment_state": { "type": "string", "enum": ["PARTIAL", "FAIL"] },
+    "evidence_class": { "type": "string", "minLength": 3 },
+    "apply_status": { "type": "string", "enum": ["implemented", "catalog"] },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "purpose"],
+        "properties": {
+          "path": { "type": "string", "minLength": 3 },
+          "purpose": { "type": "string", "minLength": 8 }
+        }
+      }
+    },
+    "validation_id": { "type": "string", "pattern": "^VAL-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "skill-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

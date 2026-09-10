@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GapPlaybook",
+  "description": "Remediation playbook attached to a PARTIAL or FAIL finding. Not attached to a family in the abstract. UNKNOWN does not receive a playbook.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "family_id",
+    "assessment_state",
+    "problem",
+    "why_it_matters",
+    "implementation_options",
+    "verification",
+    "completion_evidence",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^PB-[0-9]{4}$" },
+    "kind": { "type": "string", "enum": ["finding", "catalog"] },
+    "recommendation_id": { "type": "string", "minLength": 3 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "question_id": { "type": "string" },
+    "repo": { "type": "string" },
+    "assessment_state": { "type": "string", "enum": ["PARTIAL", "FAIL"] },
+    "evidence_class": { "type": "string", "minLength": 3 },
+    "evidence_found": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "evidence_missing": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "problem": { "type": "string", "minLength": 20 },
+    "why_it_matters": { "type": "string", "minLength": 20 },
+    "implementation_options": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "completion_evidence": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "schema_version": { "type": "string", "const": "playbook-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

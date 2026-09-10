@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AiDocumentExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "system_component": { "type": "string" },
+    "model_behavior_assumption": { "$ref": "evidenced_value.json" },
+    "evaluation_requirement": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "retrieval_requirement": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "agent_control": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "safety_control": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "observability_requirement": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "cost_performance_tradeoff": { "type": "array", "items": { "$ref": "evidenced_value.json" } }
+  }
+}

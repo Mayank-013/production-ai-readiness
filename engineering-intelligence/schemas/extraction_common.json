@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExtractionCommon",
+  "type": "object",
+  "required": ["extraction_id", "claim_type", "statement", "source", "authority"],
+  "properties": {
+    "extraction_id": { "type": "string" },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "principle",
+        "control",
+        "failure_mode",
+        "anti_pattern",
+        "tradeoff",
+        "architectural_decision",
+        "constraint",
+        "verification_method",
+        "operational_practice",
+        "security_requirement",
+        "evaluation_practice",
+        "generalizable_incident_lesson"
+      ]
+    },
+    "statement": { "type": "string", "minLength": 8 },
+    "problem": { "type": "string" },
+    "applies_when": { "type": "array", "items": { "type": "string" } },
+    "does_not_apply_when": { "type": "array", "items": { "type": "string" } },
+    "failure_modes": { "type": "array", "items": { "type": "string" } },
+    "engineering_controls": { "type": "array", "items": { "type": "string" } },
+    "evidence_expectations": { "type": "array", "items": { "type": "string" } },
+    "validation_methods": { "type": "array", "items": { "type": "string" } },
+    "tradeoffs": { "type": "array", "items": { "type": "string" } },
+    "source": {
+      "type": "object",
+      "required": ["doc_id", "passage_id", "supporting_text"],
+      "properties": {
+        "doc_id": { "type": "string", "minLength": 1 },
+        "passage_id": { "type": "string", "minLength": 1 },
+        "supporting_text": { "type": "string", "minLength": 12 },
+        "char_start": { "type": ["integer", "null"] },
+        "char_end": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "authority": { "type": "number" },
+    "extraction_confidence": { "type": "number" },
+    "extractor_family": { "type": "string" }
+  },
+  "additionalProperties": true
+}

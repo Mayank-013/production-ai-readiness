@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PairRelation",
+  "type": "object",
+  "required": ["claim_a", "claim_b", "relation"],
+  "properties": {
+    "claim_a": { "type": "string" },
+    "claim_b": { "type": "string" },
+    "relation": { "type": "string", "enum": ["EQUIVALENT", "RELATED", "UNRELATED"] },
+    "mechanism_match": { "type": "boolean" },
+    "layer_match": { "type": "string", "enum": ["same", "different", "unknown"] },
+    "applies_class_match": { "type": "boolean" },
+    "stance_match": { "type": "boolean" },
+    "substitutable": { "type": "boolean" },
+    "confidence": { "type": "number" },
+    "reason": { "type": "string" }
+  }
+}

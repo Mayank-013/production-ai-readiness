@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitDetector",
+  "description": "B2 detector declaration. Records what a detector would observe for a frozen trait. Does not conclude PRESENT/LIKELY/UNKNOWN. Weak evidence may be emitted but must remain weak. supports is the trait the observation actually claims; detector names must not overclaim. Contract only this pass: no repo scan, no observation jsonl.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "detector_id",
+    "schema_version",
+    "status",
+    "trait",
+    "detector_type",
+    "evidence_strength",
+    "supports",
+    "requires_corrob",
+    "observes"
+  ],
+  "properties": {
+    "detector_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+\\.v[1-9][0-9]*$"
+    },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "detector_type": {
+      "type": "string",
+      "enum": [
+        "dependency",
+        "import_usage",
+        "api_usage",
+        "config",
+        "code_structure",
+        "dataflow",
+        "deployment_iac",
+        "semantic"
+      ]
+    },
+    "evidence_strength": { "type": "string", "enum": ["strong", "weak"] },
+    "supports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "requires_corrob": { "type": "boolean" },
+    "observes": { "type": "string", "minLength": 12 },
+    "notes": { "type": "string" }
+  }
+}

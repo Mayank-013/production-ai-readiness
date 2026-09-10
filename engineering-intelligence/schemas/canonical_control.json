@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanonicalControl",
+  "type": "object",
+  "required": ["id", "schema_version", "statement", "mechanism", "layer", "member_extraction_ids", "evidence", "source_ids"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^control:" },
+    "schema_version": { "type": "string" },
+    "principle_id": { "type": ["string", "null"] },
+    "statement": { "type": "string", "minLength": 8 },
+    "mechanism": { "type": "string" },
+    "layer": { "type": "string" },
+    "domain": { "type": "string" },
+    "applies_when": { "type": "object" },
+    "does_not_apply_when": { "type": "array", "items": { "type": "string" } },
+    "failure_mode_ids": { "type": "array", "items": { "type": "string" } },
+    "member_extraction_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "evidence": { "type": "array", "minItems": 1 },
+    "source_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlaybookValidation",
+  "description": "One validation row for a gap playbook. Checks finding-attachment, UNKNOWN exclusion, state specificity, and that completion evidence would close the assessed gap.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "playbook_id",
+    "decision",
+    "finding_attached",
+    "unknown_excluded",
+    "state_specific",
+    "completion_closes_gap",
+    "verification_concrete",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "playbook_id": { "type": "string", "pattern": "^PB-[0-9]{4}$" },
+    "decision": { "type": "string", "enum": ["accept", "revise", "reject"] },
+    "finding_attached": { "type": "boolean" },
+    "unknown_excluded": { "type": "boolean" },
+    "state_specific": { "type": "boolean" },
+    "completion_closes_gap": { "type": "boolean" },
+    "verification_concrete": { "type": "boolean" },
+    "notes": { "type": "string" },
+    "schema_version": { "type": "string", "const": "playbook-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

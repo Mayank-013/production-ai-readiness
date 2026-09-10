@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EngineeringArticleExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "pattern": { "$ref": "evidenced_value.json" },
+    "anti_pattern": { "$ref": "evidenced_value.json" },
+    "context": { "type": "array", "items": { "type": "string" } },
+    "problem": { "type": "string" },
+    "forces": { "type": "array", "items": { "type": "string" } },
+    "tradeoffs": { "type": "array" },
+    "consequences": { "type": "array", "items": { "type": "string" } },
+    "when_to_use": { "type": "array", "items": { "type": "string" } },
+    "when_not_to_use": { "type": "array", "items": { "type": "string" } }
+  }
+}

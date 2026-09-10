@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuestionFamily",
+  "description": "Reusable engineering question supported by many canonical CPF objects. Specializations and detectors come later. Do not write these fields onto Control/FailureMode/Principle objects. Do not emit one family per canonical object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "status",
+    "stem",
+    "diagnostic_job",
+    "question_stance",
+    "supporting_control_ids",
+    "supporting_failure_mode_ids",
+    "supporting_principle_ids",
+    "specialization_slots"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "family-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "canonical", "rejected"] },
+    "stem": { "type": "string", "minLength": 12 },
+    "diagnostic_job": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "question_stance": { "type": "string", "enum": ["exist", "measure", "verify"] },
+    "mvp_areas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "llm_application_lifecycle",
+          "agent_design_runtime",
+          "evaluation",
+          "ai_observability",
+          "ai_security",
+          "model_inference_deployment",
+          "rag_data_grounding",
+          "reliability_recovery",
+          "cost_resource_management",
+          "change_release_management"
+        ]
+      }
+    },
+    "supporting_control_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CTRL-[0-9]{4}$" }
+    },
+    "supporting_failure_mode_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^FAIL-[0-9]{4}$" }
+    },
+    "supporting_principle_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^PRIN-[0-9]{4}$" }
+    },
+    "supporting_relationship_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^REL-[0-9]{4}$" }
+    },
+    "specialization_slots": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "does_not_merge_with": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "applies_when": {
+      "type": "object",
+      "properties": {
+        "system_classes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "human_required": { "type": "boolean" },
+    "notes": { "type": "string" },
+    "wave": { "type": "string", "enum": ["wave1", "wave2", "wave3"] },
+    "split_from": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "supporting_cpf_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(CTRL|FAIL|PRIN)-[0-9]{4}$" }
+    },
+    "promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed", "source_wave"],
+      "properties": {
+        "reviewed": { "type": "boolean", "const": true },
+        "source_wave": { "type": "string", "enum": ["wave1", "wave2", "wave3"] },
+        "support_changed_after_construction": { "type": "boolean" }
+      }
+    }
+  },
+  "anyOf": [
+    { "properties": { "supporting_control_ids": { "minItems": 1 } }, "required": ["supporting_control_ids"] },
+    { "properties": { "supporting_failure_mode_ids": { "minItems": 1 } }, "required": ["supporting_failure_mode_ids"] },
+    { "properties": { "supporting_principle_ids": { "minItems": 1 } }, "required": ["supporting_principle_ids"] }
+  ]
+}

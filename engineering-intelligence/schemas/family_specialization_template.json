@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FamilySpecializationTemplate",
+  "description": "How an already-applicable family is phrased for a known trait context. Noun substitution only. Does not change frozen applicability, diagnostic_job, or question_stance. match_policy stays unresolved: multiple valid specializations may match simultaneously, and template validity is independent of runtime selection policy. Do not emit EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "schema_version",
+    "status",
+    "diagnostic_job",
+    "question_stance",
+    "canonical_stem",
+    "applicability_ref",
+    "match_policy",
+    "specializations"
+  ],
+  "properties": {
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "reviewed", "frozen"] },
+    "diagnostic_job": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "question_stance": { "type": "string", "enum": ["exist", "measure", "verify"] },
+    "canonical_stem": { "type": "string", "minLength": 12 },
+    "applicability_ref": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "match_policy": {
+      "type": "string",
+      "enum": ["unresolved", "most_specific", "all_matching", "per_component"]
+    },
+    "specializations": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/specialization" }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "specialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "when", "bindings", "specialized_stem"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^QF-[0-9]{4}\\.[a-z][a-z0-9_]*$" },
+        "when": {
+          "description": "Trait condition. Must imply frozen APPLY for this family. Atomic all-lists so overlapping traits can match multiple specializations.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["all"],
+          "properties": {
+            "all": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+            }
+          }
+        },
+        "bindings": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "minLength": 3 },
+          "minProperties": 1
+        },
+        "specialized_stem": { "type": "string", "minLength": 12 },
+        "scope": { "type": "string", "enum": ["family", "component"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

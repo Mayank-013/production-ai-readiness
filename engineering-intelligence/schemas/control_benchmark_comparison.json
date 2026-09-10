@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ControlBenchmarkComparison",
+  "description": "One C4 comparison of human reference vs system assessment. False SATISFIED and false FAIL are expensive.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo",
+    "family_id",
+    "expectation_id",
+    "human",
+    "system",
+    "classification",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "repo": { "type": "string", "minLength": 2 },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "expectation_id": { "type": "string", "pattern": "^CEE-[0-9]{4}$" },
+    "human": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "system": {
+      "type": "string",
+      "enum": ["SATISFIED", "PARTIAL", "UNKNOWN", "FAIL"]
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "SATISFIED_TP",
+        "SATISFIED_FP",
+        "SATISFIED_FN",
+        "PARTIAL_MATCH",
+        "PARTIAL_MISS",
+        "FAIL_TP",
+        "FAIL_FP",
+        "FAIL_FN",
+        "UNKNOWN_ABSTAIN",
+        "STATE_MISMATCH"
+      ]
+    },
+    "schema_version": { "type": "string", "const": "control-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

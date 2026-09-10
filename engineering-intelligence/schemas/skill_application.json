@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillApplication",
+  "description": "Record of applying one implemented skill to a development finding. Does not mutate HackerRankATS or sealed dests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "skill_id",
+    "family_id",
+    "assessment_state",
+    "evidence_class",
+    "source_repo",
+    "worktree",
+    "files_written",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "skill_id": { "type": "string", "pattern": "^SKL-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "assessment_state": { "type": "string", "enum": ["PARTIAL", "FAIL"] },
+    "evidence_class": { "type": "string", "minLength": 3 },
+    "source_repo": { "type": "string", "minLength": 3 },
+    "worktree": { "type": "string", "minLength": 3 },
+    "files_written": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "schema_version": { "type": "string", "const": "skill-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

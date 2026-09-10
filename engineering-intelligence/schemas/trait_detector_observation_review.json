@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitDetectorObservationReview",
+  "description": "Execution QA of one emitted detector observation. Asks whether the runner fired on the frozen observes clause, whether the cited span contains that evidence, whether the observation text is accurate, and whether the row is independent. Decisions are VALID, FALSE_HIT, BAD_SPAN, DUPLICATE, or MISSTATED_OBSERVATION. Not a trait conclusion. Do not emit PRESENT/LIKELY/ABSENT/UNKNOWN or EngineeringQuestion rows from this object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "observation_index",
+    "detector_id",
+    "trait",
+    "strength",
+    "supports",
+    "file",
+    "location",
+    "observation",
+    "observes",
+    "gates",
+    "decision",
+    "defect_class",
+    "unresolved",
+    "schema_version"
+  ],
+  "properties": {
+    "observation_index": { "type": "integer", "minimum": 1 },
+    "detector_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+\\.v[1-9][0-9]*$"
+    },
+    "trait": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "strength": { "type": "string", "enum": ["strong", "weak"] },
+    "supports": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "file": { "type": "string", "minLength": 1 },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_line", "end_line"],
+      "properties": {
+        "start_line": { "type": "integer", "minimum": 1 },
+        "end_line": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "observation": { "type": "string", "minLength": 12 },
+    "observes": { "type": "string", "minLength": 12 },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "MATCHES_OBSERVES",
+        "SPAN_CONTAINS_EVIDENCE",
+        "OBSERVATION_ACCURATE",
+        "INDEPENDENT"
+      ],
+      "properties": {
+        "MATCHES_OBSERVES": { "type": "boolean" },
+        "SPAN_CONTAINS_EVIDENCE": { "type": "boolean" },
+        "OBSERVATION_ACCURATE": { "type": "boolean" },
+        "INDEPENDENT": { "type": "boolean" }
+      }
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "VALID",
+        "FALSE_HIT",
+        "BAD_SPAN",
+        "DUPLICATE",
+        "MISSTATED_OBSERVATION"
+      ]
+    },
+    "defect_class": {
+      "type": "string",
+      "enum": ["none", "runner", "catalog_contract"]
+    },
+    "unresolved": { "type": "boolean" },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

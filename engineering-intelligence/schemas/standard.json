@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StandardExtraction",
+  "allOf": [{ "$ref": "extraction_common.json" }],
+  "properties": {
+    "requirement": { "$ref": "evidenced_value.json" },
+    "control_objective": { "$ref": "evidenced_value.json" },
+    "applicability": { "type": "array", "items": { "$ref": "evidenced_value.json" } },
+    "risk": { "$ref": "evidenced_value.json" },
+    "verification": {
+      "oneOf": [
+        { "$ref": "evidenced_value.json" },
+        { "type": "array", "items": { "$ref": "evidenced_value.json" } }
+      ]
+    },
+    "exception": { "type": "array", "items": { "type": "string" } },
+    "possible_implementations": { "type": "array", "items": { "type": "string" } }
+  }
+}

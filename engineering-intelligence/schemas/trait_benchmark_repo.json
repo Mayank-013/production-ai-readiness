@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkRepo",
+  "description": "One selected B4 benchmark repository. Records coverage role and split only. Do not attach PRESENT/LIKELY/UNKNOWN. Do not inspect the repository from this object. Do not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_id",
+    "display_name",
+    "repo_url",
+    "source_class",
+    "split",
+    "primary_role",
+    "secondary_roles",
+    "runnable",
+    "already_run",
+    "status",
+    "schema_version"
+  ],
+  "properties": {
+    "repo_id": { "type": "string", "minLength": 3, "pattern": "^[a-z][a-z0-9_]*$" },
+    "display_name": { "type": "string", "minLength": 3 },
+    "repo_url": { "type": "string", "minLength": 8 },
+    "source_class": {
+      "type": "string",
+      "enum": [
+        "first_observation",
+        "curated_oss",
+        "official_ai",
+        "coverage_gap",
+        "curated_related",
+        "adr_catalog"
+      ]
+    },
+    "split": { "type": "string", "enum": ["development", "held_out"] },
+    "primary_role": {
+      "type": "string",
+      "enum": [
+        "plain_backend",
+        "llm_without_rag",
+        "real_rag",
+        "retrieval_without_generation",
+        "agentic_without_tools",
+        "tool_using_agent",
+        "background_worker",
+        "stateful",
+        "multi_tenant",
+        "model_serving",
+        "human_facing",
+        "deployment_heavy"
+      ]
+    },
+    "secondary_roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "plain_backend",
+          "llm_without_rag",
+          "real_rag",
+          "retrieval_without_generation",
+          "agentic_without_tools",
+          "tool_using_agent",
+          "background_worker",
+          "stateful",
+          "multi_tenant",
+          "model_serving",
+          "human_facing",
+          "deployment_heavy"
+        ]
+      }
+    },
+    "runnable": { "type": "boolean", "const": true },
+    "already_run": { "type": "boolean" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] },
+    "schema_version": { "type": "string", "const": "trait-0.1" },
+    "notes": { "type": "string" }
+  }
+}

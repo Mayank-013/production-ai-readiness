@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidationMethod",
+  "description": "How a finding-attached skill is proven closed. Re-runs affected control detectors. A finding is not closed until the assessment state changes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "skill_id",
+    "family_id",
+    "kind",
+    "before_state",
+    "after_state_required",
+    "checks",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^VAL-[0-9]{4}$" },
+    "skill_id": { "type": "string", "pattern": "^SKL-[0-9]{4}$" },
+    "family_id": { "type": "string", "pattern": "^QF-[0-9]{4}$" },
+    "kind": { "type": "string", "enum": ["detector-rerun"] },
+    "before_state": { "type": "string", "enum": ["PARTIAL", "FAIL"] },
+    "after_state_required": { "type": "string", "enum": ["SATISFIED", "PARTIAL"] },
+    "checks": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "schema_version": { "type": "string", "const": "skill-0.1" },
+    "status": { "type": "string", "enum": ["candidate", "frozen"] }
+  }
+}

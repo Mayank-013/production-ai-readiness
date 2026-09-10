@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TraitBenchmarkFix",
+  "description": "One allowed implementation fix applied in the single development remediation pass.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fix_id",
+    "cause",
+    "kind",
+    "summary",
+    "files",
+    "affected_repos",
+    "detector_ids",
+    "observes_changed",
+    "thresholds_changed",
+    "ontology_changed",
+    "schema_version"
+  ],
+  "properties": {
+    "fix_id": { "type": "string", "minLength": 3 },
+    "cause": { "type": "string", "enum": ["RUNNER_MISS", "AGGREGATION_MISS", "REFERENCE_LABEL_ISSUE"] },
+    "kind": { "type": "string", "enum": ["runner", "aggregation", "label"] },
+    "summary": { "type": "string", "minLength": 8 },
+    "files": { "type": "array", "items": { "type": "string" } },
+    "affected_repos": { "type": "array", "items": { "type": "string" } },
+    "detector_ids": { "type": "array", "items": { "type": "string" } },
+    "observes_changed": { "type": "boolean", "const": false },
+    "thresholds_changed": { "type": "boolean", "const": false },
+    "ontology_changed": { "type": "boolean", "const": false },
+    "schema_version": { "type": "string", "const": "trait-0.1" }
+  }
+}

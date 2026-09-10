@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RelatednessPair",
+  "description": "Slots a clusterer must fill before merging. See docs/consolidation.md.",
+  "type": "object",
+  "required": ["intent", "mechanism", "layer", "applies_class", "failure_if_omitted", "target_kind"],
+  "properties": {
+    "intent": { "type": "string" },
+    "mechanism": { "type": "string" },
+    "layer": { "type": "string" },
+    "applies_class": { "type": "string" },
+    "failure_if_omitted": { "type": "string" },
+    "target_kind": {
+      "type": "string",
+      "enum": ["principle", "control", "failure_mode", "tradeoff", "constraint", "decision"]
+    }
+  }
+}

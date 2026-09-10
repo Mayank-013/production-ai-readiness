@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepoEvidence",
+  "description": "One language-neutral repository evidence node. Language-specific syntax is normalized here so frozen detector semantics can operate over one representation. Does not conclude PRESENT/LIKELY/UNKNOWN. Does not fork detectors by language. Does not emit EngineeringQuestion rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "language",
+    "file",
+    "start_line",
+    "end_line",
+    "schema_version"
+  ],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "file",
+        "symbol",
+        "import",
+        "call",
+        "reference",
+        "entry_point",
+        "config_link"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "python",
+        "go",
+        "java",
+        "c",
+        "cpp",
+        "javascript",
+        "typescript",
+        "config",
+        "unknown"
+      ]
+    },
+    "file": { "type": "string", "minLength": 1 },
+    "start_line": { "type": "integer", "minimum": 1 },
+    "end_line": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string" },
+    "callee": { "type": "string" },
+    "module": { "type": "string" },
+    "effect": {
+      "type": "string",
+      "enum": [
+        "outbound_wait",
+        "listen",
+        "persist",
+        "cache",
+        "generate",
+        "retrieve",
+        "secret_read",
+        "log",
+        "auth_session",
+        "job_consume",
+        "train",
+        "none"
+      ]
+    },
+    "schema_version": { "type": "string", "const": "repo-ir-0.1" }
+  }
+}
