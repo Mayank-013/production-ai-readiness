@@ -2,6 +2,8 @@
 
 A Cursor and Claude Code skill that scans an AI app for production gaps. The scanner scores the repo; the host model writes the review from your files.
 
+After you install it, type **`/production-ai-readiness`** in the chat. That runs the scan and writes the customer review. You can also say "assess production AI readiness".
+
 You need Python 3.11+ and PyYAML.
 
 ```bash
@@ -67,3 +69,7 @@ python3 scripts/assess.py --repo /path/to/your/app --overwrite
 ```
 
 Results land in `engineering-intelligence/consolidation/product_runs/<repo>/repo_analysis_integrated/`. Read `brief.json`. Don't send `brief.md` to the customer.
+
+## Developed by
+
+Mayank Maurya ([Mayank-013](https://github.com/Mayank-013)).
