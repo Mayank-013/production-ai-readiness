@@ -4,9 +4,9 @@ description: >-
   Assess Production AI Readiness for a repository using ForgeAI's frozen
   42-family analyzer. After the scan, hunt specialized questions on real
   paths, then write a customer review that only cites their code. Apply only
-  catalog-compatible implementation skills. Use when the user asks to assess
-  production readiness, run ForgeAI, check AI app readiness, or fix a
-  ForgeAI finding.
+  catalog-compatible implementation skills. Use when the user types
+  /production-ai-readiness or asks to assess production readiness, run
+  ForgeAI, check AI app readiness, or fix a ForgeAI finding.
 ---
 
 # Production AI Readiness

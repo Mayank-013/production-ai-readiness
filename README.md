@@ -28,7 +28,19 @@ ln -sfn ~/src/production-ai-readiness ~/.cursor/skills/production-ai-readiness
 ln -sfn ~/src/production-ai-readiness ~/.claude/skills/production-ai-readiness
 ```
 
-Open the app you want assessed and ask: **Assess production AI readiness**.
+Hook the slash command so `/production-ai-readiness` shows up in the chat:
+
+```bash
+mkdir -p ~/.cursor/commands ~/.claude/commands
+ln -sfn ~/.cursor/skills/production-ai-readiness/commands/production-ai-readiness.md \
+  ~/.cursor/commands/production-ai-readiness.md
+ln -sfn ~/.claude/skills/production-ai-readiness/commands/production-ai-readiness.md \
+  ~/.claude/commands/production-ai-readiness.md
+```
+
+If you used the single-clone + symlink install, point both command files at that clone's `commands/production-ai-readiness.md`.
+
+Open the app you want assessed. Type `/production-ai-readiness` in the chat. You can also say "assess production AI readiness".
 
 To run the scan yourself:
 
@@ -39,6 +51,7 @@ python3 ~/.cursor/skills/production-ai-readiness/scripts/assess.py --repo "$PWD"
 ## What's in here
 
 - `SKILL.md` — what the host agent should do
+- `commands/production-ai-readiness.md` — `/production-ai-readiness` in the chat
 - `scripts/assess.py` — the command that runs the scan
 - `pipeline/` — the 42-family analyzer
 - `engineering-intelligence/schemas/` — validation schemas
